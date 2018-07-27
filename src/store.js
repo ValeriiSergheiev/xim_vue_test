@@ -5,10 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    login: ''
   },
   mutations: {
-
+    updateField (state, loginForm) {
+      state.login = loginForm
+    }
   },
   actions: {
 
