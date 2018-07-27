@@ -1,0 +1,32 @@
+.sign-up-form__row {
+  .v-select .dropdown-toggle {
+    border-radius: 5px;
+    border: 1px solid #d5dce5;
+    margin: 7px 0 23px;
+  }
+
+  .v-select input[type="search"] {
+    height: 40px;
+    max-width: 120px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+  }
+
+  .dropdown-menu {
+    li {
+      a {
+        font-size: 14px;
+        color: rgb(185,191,211);
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .selected-tag {
+    font-size: 14px;
+    margin-top: 7px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+  }
+}

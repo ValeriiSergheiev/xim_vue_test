@@ -40,23 +40,59 @@
           
           <div class="sign-up-form__col-2">
             <div class="sign-up-form__row">
-              <label>login <span>*</span></label>
-              <input type="text" placeholder="SomecollLogin">
+              <label>country</label>
+              <v-select
+                :options="$store.state.countries"
+                label="name"
+                placeholder="Select"
+              ></v-select>
+            </div>
+          </div>
+          
+          <div class="sign-up-form__col-2">
+            <div class="sign-up-form__row">
+              <label>city</label>
+              <v-select
+                :options="$store.state.cities"
+                label="name"
+                placeholder="Select"
+              ></v-select>
+            </div>
+          </div>
+          
+          <div class="sign-up-form__col-2">
+            <div class="sign-up-form__row">
+              <label>date of birth</label>
+              <datepicker></datepicker>
+            </div>
+          </div>
+          
+          <div class="sign-up-form__col-2">
+            <div class="sign-up-form__row">
+              <label>zip code</label>
+              <input type="text">
             </div>
           </div>
         </div>
         
         <button class="button">sign up</button>
       </form>
-    </div><div class="test"></div>
+    </div>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState } from 'vuex'
+  import vSelect from 'vue-select'
+  import Datepicker from 'vuejs-datepicker'
   
   export default {
     name: "RegistrationForm",
+    
+    components: {
+      vSelect,
+      Datepicker
+    },
     
     data() {
       return {
@@ -146,9 +182,5 @@
     &:hover {
       opacity: .7;
     }
-  }
-  .test {
-    height: 250px;
-    background-color:green;
   }
 </style>
