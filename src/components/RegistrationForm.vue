@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-card-block">
-      <p>login: {{ formLogin }}</p>
+      <p>login777: {{ formLogin }}</p>
     </div>
     
     <div class="sign-up-block">
