@@ -13,8 +13,8 @@ export default new Vuex.Store({
       },
       firstName: '',
       lastName: '',
-      country: '',
-      city: '',
+      country: null,
+      city: null,
       date: '',
       zip: ''
     }

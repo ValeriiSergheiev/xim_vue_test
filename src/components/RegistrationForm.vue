@@ -2,7 +2,7 @@
   <div>
     <div class="user-card-block">
       <h3>New user</h3>
-      <p>{{$store.state.formSignUp.firstName}} {{$store.state.formSignUp.lastName}} <span v-show="$store.state.formSignUp.requiredFields.login" class="divider">/ </span><span>{{$store.state.formSignUp.requiredFields.login}}</span></p>
+      <p>{{ $store.state.formSignUp.firstName}} {{$store.state.formSignUp.lastName}} <span v-show="$store.state.formSignUp.requiredFields.login" class="divider">/ </span><span>{{$store.state.formSignUp.requiredFields.login}}</span></p>
       <p>{{$store.state.formSignUp.requiredFields.email}}</p>
     </div>
     
@@ -12,17 +12,17 @@
         
         <div class="sign-up-form__row">
           <label>login <span>*</span></label>
-          <input v-model="loginForm" type="text" placeholder="SomecoolLogin" required>
+          <input v-model="loginForm" type="text" placeholder="SomecoolLogin">
         </div>
         
         <div class="sign-up-form__row">
           <label>e-mail <span class="sign-up-form__row_span-red">*</span></label>
-          <input v-model="emailForm" type="email" placeholder="Somecool@gmail.com" required>
+          <input v-model="emailForm" type="text" placeholder="Somecool@gmail.com">
         </div>
   
         <div class="sign-up-form__row">
           <label>password <span>*</span></label>
-          <input v-model="passForm" type="password" required>
+          <input v-model="passForm" type="password">
         </div>
         
         <div class="sign-up-form__col-wrapper">
@@ -80,7 +80,7 @@
           </div>
         </div>
         
-        <button @click="btnClick" class="button">sign up</button>
+        <button @click.prevent="btnClick" class="button">sign up</button>
       </form>
     </div>
   </div>
@@ -228,9 +228,18 @@
       btnClick () {
         let requiredFields = Object.values(this.$store.state.formSignUp.requiredFields)
         if (requiredFields.some(elem => (elem == ''))) {
-          alert('false')
+          this.$swal({
+            title: 'Oops...',
+            text: 'Please fill out all required fields!',
+            type: 'error',
+            confirmButtonText: 'Ok'
+          })
         } else {
-          alert('true')
+          this.$swal({
+            title: 'Good job!',
+            type: 'success',
+            confirmButtonText: 'Cool'
+          })
         }
       }
     }

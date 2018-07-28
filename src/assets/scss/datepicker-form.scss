@@ -21,4 +21,16 @@
       border: 1px solid #d5dce5;
     }
   }
+
+  .vdp-datepicker__calendar {
+    width: 200px;
+    .cell {
+      height: 30px;
+      line-height: 30px;
+      font-size: 13px;
+    }
+    .cell.day-header {
+      font-size: 70%;
+    }
+  }
 }
