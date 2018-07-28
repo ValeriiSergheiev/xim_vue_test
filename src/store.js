@@ -5,44 +5,50 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    login: '',
-
-    countries: [
-      {
-        id: 1,
-        name: 'China'
+    formSignUp: {
+      requiredFields: {
+        login: '',
+        email: '',
+        pass: ''
       },
-      {
-        id: 2,
-        name: 'England'
-      },
-      {
-        id: 3,
-        name: 'Japan'
-      }
-    ],
-
-    cities: [
-      {
-        id: 1,
-        name: 'Pekin'
-      },
-      {
-        id: 2,
-        name: 'London'
-      },
-      {
-        id: 3,
-        name: 'Tokyo'
-      }
-    ]
-  },
-  mutations: {
-    updateField (state, loginForm) {
-      state.login = loginForm
+      firstName: '',
+      lastName: '',
+      country: '',
+      city: '',
+      date: '',
+      zip: ''
     }
   },
-  actions: {
 
-  }
+  mutations: {
+    updateFieldLogin (state, loginForm) {
+      state.formSignUp.requiredFields.login = loginForm
+    },
+    updateFieldEmail (state, emailForm) {
+      state.formSignUp.requiredFields.email = emailForm
+    },
+    updateFieldPass (state, passForm) {
+      state.formSignUp.requiredFields.pass = passForm
+    },
+    updateFieldFistName (state, firstNameForm) {
+      state.formSignUp.firstName = firstNameForm
+    },
+    updateFieldLastName (state, lastNameForm) {
+      state.formSignUp.lastName = lastNameForm
+    },
+    updateFieldCountry (state, countryForm) {
+      state.formSignUp.country = countryForm
+    },
+    updateFieldCity (state, cityForm) {
+      state.formSignUp.city = cityForm
+    },
+    updateFieldDate (state, dateForm) {
+      state.formSignUp.date = dateForm
+    },
+    updateFieldZip (state, zipForm) {
+      state.formSignUp.zip = zipForm
+    },
+  },
+
+  actions: {}
 })

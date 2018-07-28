@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="user-card-block">
-      <p>login777: {{ formLogin }}</p>
+      <h3>New user</h3>
+      <p>{{$store.state.formSignUp.firstName}} {{$store.state.formSignUp.lastName}} <span v-show="$store.state.formSignUp.requiredFields.login" class="divider">/ </span><span>{{$store.state.formSignUp.requiredFields.login}}</span></p>
+      <p>{{$store.state.formSignUp.requiredFields.email}}</p>
     </div>
     
     <div class="sign-up-block">
@@ -10,31 +12,31 @@
         
         <div class="sign-up-form__row">
           <label>login <span>*</span></label>
-          <input :value="formLogin" @input="updateField" type="text" placeholder="SomecollLogin">
+          <input v-model="loginForm" type="text" placeholder="SomecoolLogin" required>
         </div>
         
         <div class="sign-up-form__row">
           <label>e-mail <span class="sign-up-form__row_span-red">*</span></label>
-          <input type="email" placeholder="SomecollLogin">
+          <input v-model="emailForm" type="email" placeholder="Somecool@gmail.com" required>
         </div>
   
         <div class="sign-up-form__row">
           <label>password <span>*</span></label>
-          <input type="password">
+          <input v-model="passForm" type="password" required>
         </div>
         
         <div class="sign-up-form__col-wrapper">
           <div class="sign-up-form__col-2">
             <div class="sign-up-form__row">
               <label>first name</label>
-              <input type="text" placeholder="Firstname">
+              <input v-model="firstNameForm" type="text" placeholder="Firstname">
             </div>
           </div>
           
           <div class="sign-up-form__col-2">
             <div class="sign-up-form__row">
               <label>last name</label>
-              <input type="text" placeholder="Last name">
+              <input v-model="lastNameForm" type="text" placeholder="Last name">
             </div>
           </div>
           
@@ -42,9 +44,10 @@
             <div class="sign-up-form__row">
               <label>country</label>
               <v-select
-                :options="$store.state.countries"
+                :options="countries"
                 label="name"
                 placeholder="Select"
+                v-model="countryForm"
               ></v-select>
             </div>
           </div>
@@ -53,9 +56,11 @@
             <div class="sign-up-form__row">
               <label>city</label>
               <v-select
-                :options="$store.state.cities"
+                :options="cities"
                 label="name"
                 placeholder="Select"
+                :disabled="!countryForm"
+                v-model="cityForm"
               ></v-select>
             </div>
           </div>
@@ -63,26 +68,26 @@
           <div class="sign-up-form__col-2">
             <div class="sign-up-form__row">
               <label>date of birth</label>
-              <datepicker></datepicker>
+              <datepicker v-model="dateForm"></datepicker>
             </div>
           </div>
           
           <div class="sign-up-form__col-2">
             <div class="sign-up-form__row">
               <label>zip code</label>
-              <input type="text">
+              <input v-model="zipForm" type="text">
             </div>
           </div>
         </div>
         
-        <button class="button">sign up</button>
+        <button @click="btnClick" class="button">sign up</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  //import { mapState } from 'vuex'
   import vSelect from 'vue-select'
   import Datepicker from 'vuejs-datepicker'
   
@@ -96,22 +101,137 @@
     
     data() {
       return {
+        countries: [
+          {
+            id: 1,
+            name: 'China'
+          },
+          {
+            id: 2,
+            name: 'England'
+          },
+          {
+            id: 3,
+            name: 'Japan'
+          }
+        ],
+
+        cities: [
+          {
+            id: 1,
+            name: 'Pekin'
+          },
+          {
+            id: 2,
+            name: 'London'
+          },
+          {
+            id: 3,
+            name: 'Tokyo'
+          }
+        ]
       }
     },
     
     computed: {
-      ...mapState({
-        formLogin: state => state.login
-      })
+      // ...mapState({
+      //   formLogin: state => state.formSignUp.requiredFields.login,
+      //   formEmail: state => state.formSignUp.requiredFields.email
+      // })
+      loginForm: {
+        get() {
+          return this.$store.state.formSignUp.requiredFields.login
+        },
+        set(value) {
+          this.$store.commit('updateFieldLogin', value)
+        }
+      },
+      
+      emailForm: {
+        get() {
+          return this.$store.state.formSignUp.requiredFields.email
+        },
+        set(value) {
+          this.$store.commit('updateFieldEmail', value)
+        }
+      },
+      
+      passForm: {
+        get() {
+          return this.$store.state.formSignUp.requiredFields.pass
+        },
+        set(value) {
+          this.$store.commit('updateFieldPass', value)
+        }
+      },
+      
+      firstNameForm: {
+        get() {
+          return this.$store.state.formSignUp.firstName
+        },
+        set(value) {
+          this.$store.commit('updateFieldFistName', value)
+        }
+      },
+      lastNameForm: {
+        get() {
+          return this.$store.state.formSignUp.lastName
+        },
+        set(value) {
+          this.$store.commit('updateFieldLastName', value)
+        }
+      },
+      countryForm: {
+        get() {
+          return this.$store.state.formSignUp.country
+        },
+        set(value) {
+          this.$store.commit('updateFieldCountry', value)
+        }
+      },
+      cityForm: {
+        get() {
+          return this.$store.state.formSignUp.city
+        },
+        set(value) {
+          this.$store.commit('updateFieldCity', value)
+        }
+      },
+      dateForm: {
+        get() {
+          return this.$store.state.formSignUp.date
+        },
+        set(value) {
+          this.$store.commit('updateFieldDate', value)
+        }
+      },
+      zipForm: {
+        get() {
+          return this.$store.state.formSignUp.zip
+        },
+        set(value) {
+          this.$store.commit('updateFieldZip', value)
+        }
+      },
     },
     
     mounted () {
-      
     },
     
     methods: {
-      updateField (e) {
-        this.$store.commit('updateField', e.target.value)
+      // updateFieldLogin (e) {
+      //   this.$store.commit('updateFieldLogin', e.target.value)
+      // },
+      // updateFieldEmail (e) {
+      //   this.$store.commit('updateFieldEmail', e.target.value)
+      // },
+      btnClick () {
+        let requiredFields = Object.values(this.$store.state.formSignUp.requiredFields)
+        if (requiredFields.some(elem => (elem == ''))) {
+          alert('false')
+        } else {
+          alert('true')
+        }
       }
     }
   }
@@ -181,6 +301,29 @@
     margin-top: 50px;
     &:hover {
       opacity: .7;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  .user-card-block {
+    @extend .sign-up-block;
+    margin-bottom: 20px;
+    text-align: center;
+    h3 {
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 14px;
+      color: rgb(58,64,91);
+      margin: 5px 0 0;
+      .divider {
+        color: inherit;
+      }
+      span {
+        color: rgb(173,177,189);
+      }
     }
   }
 </style>
